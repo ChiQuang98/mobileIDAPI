@@ -6,7 +6,7 @@
   "Restful":{
     "Interface": "bond0",
     "Host": "0.0.0.0",
-    "Port": 8001
+    "Port": 8000
   },
   "HbaseConfig": {
     "Host": "10.51.28.225",

@@ -7,6 +7,7 @@ import (
 	"MobileIDAPI/utils/settings"
 	"github.com/golang/glog"
 	"net/http"
+	"strconv"
 )
 
 func IdentifyPhoneNumber(identityRequest *models.IdentityRequest) (int, []byte) {
@@ -17,7 +18,12 @@ func IdentifyPhoneNumber(identityRequest *models.IdentityRequest) (int, []byte) 
 		return code, resJson
 	}
 	shemaIdentity := settings.GetSchemaHbase().Identity
-	rowKey := identityRequest.Address + "|" + identityRequest.Msisdn
+	rowKey := ""
+	if identityRequest.Port == 0 {
+		rowKey = identityRequest.Address + "|" + identityRequest.Msisdn
+	} else {
+		rowKey = identityRequest.Address + "|" + identityRequest.Msisdn + "|" + strconv.Itoa(identityRequest.Port)
+	}
 	err, identity := hbase_utils.GetInfoIndentityByRowKey(clientHbase, shemaIdentity, rowKey)
 	//Neu tim thay, co data
 	if err == nil && identity.Phone != "" {

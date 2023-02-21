@@ -37,7 +37,7 @@ func main() {
 	nApi.Use(c)
 	nApi.UseHandler(routerApi)
 	listenTo := settings.GetRestful().Host + ":" + strconv.Itoa(settings.GetRestful().Port)
-	fmt.Println("Starting Service: " + listenTo)
+	fmt.Println("Started Service: " + listenTo)
 	http.ListenAndServe(listenTo, nApi)
-	//select {}
+
 }
